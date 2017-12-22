@@ -3,17 +3,20 @@
   "version": "0.0.1",
   "description": "P2P messaging and collaboration tool built on IPFS",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/dabatten/proteus.git"
+    "type": "git",
+    "url": "https://github.com/dabatten/proteus.git"
   },
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "http-server -c-1 -p 12345 public",
+    "compile": "browserify src/app.js -o public/js/app.js -d"
   },
   "author": "Davis Batten",
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.0",
-    "ipfs": "^0.27.5"
+    "browserify": "^14.5.0",
+    "ipfs": "^0.27.5",
+    "ipfs-pubsub-room": "^1.1.4"
   }
 }
