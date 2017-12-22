@@ -2,6 +2,10 @@
   "name": "proteus",
   "version": "0.0.1",
   "description": "P2P messaging and collaboration tool built on IPFS",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/dabatten/proteus.git"
+  },
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
