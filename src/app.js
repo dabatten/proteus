@@ -1,6 +1,11 @@
 const IPFS = require('ipfs')
 const PubSub = require('ipfs-pubsub-room')
 
+/* UI DOM elements */
+$chatInput = document.querySelector('#chatInput')
+$sendButton = document.querySelector('#sendButton')
+
+/* Setup IPFS node */
 const node = new IPFS({
 	repo: repo(),
 	EXPERIMENTAL: {
@@ -39,12 +44,11 @@ node.once('ready', () => node.id((err, info) => {
 		console.log('' + message.from + ': ' + message.data.toString())
 	})
 
-	//testing -> broadcast message every 3 seconds
-	setInterval(() => {
-		room.broadcast('hey everyone')
-	}, 3000)
+	$sendButton.addEventListener('click', () => {
+		room.broadcast($chatInput.value)
+		$chatInput.value = ''
+	})
 }))
-
 
 function repo() {
 	return 'ipfs/proteus/' + Math.random()
