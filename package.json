@@ -8,15 +8,17 @@
   },
   "main": "app.js",
   "scripts": {
-    "start": "http-server -c-1 -p 12345 public",
-    "compile": "browserify src/app.js -o public/js/app.js -d"
+    "start": "http-server -c-1 -p 12345 dist",
+    "build": "webpack"
   },
   "author": "Davis Batten",
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.0",
-    "browserify": "^14.5.0",
     "ipfs": "^0.27.5",
     "ipfs-pubsub-room": "^1.1.4"
+  },
+  "devDependencies": {
+    "webpack": "^3.10.0"
   }
 }

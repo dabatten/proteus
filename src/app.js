@@ -1,9 +1,7 @@
 const IPFS = require('ipfs')
 const PubSub = require('ipfs-pubsub-room')
 
-/* UI DOM elements */
-$chatInput = document.querySelector('#chatInput')
-$sendButton = document.querySelector('#sendButton')
+import Chat from './chat.js';
 
 /* Setup IPFS node */
 const node = new IPFS({
@@ -35,19 +33,7 @@ node.once('ready', () => node.id((err, info) => {
 		console.log('Peer left the room:', peer)
 	})
 
-	//send and receive messages
-
-	room.on('peer joined', (peer) => {
-		room.sendTo(peer, 'Hello ' + peer + '!')
-	})
-	room.on('message', (message) => {
-		console.log('' + message.from + ': ' + message.data.toString())
-	})
-
-	$sendButton.addEventListener('click', () => {
-		room.broadcast($chatInput.value)
-		$chatInput.value = ''
-	})
+	Chat(room);
 }))
 
 function repo() {
