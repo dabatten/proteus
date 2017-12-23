@@ -128982,6 +128982,8 @@ exports = module.exports = {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = chat;
+//send and receive messages
+
 function chat(room) {
 
 	/* UI DOM elements */
@@ -128989,25 +128991,32 @@ function chat(room) {
 	var sendButton = document.querySelector('#sendButton')
 
 
+	// sendButton.addEventListener('click', () => {
+	// 	room.broadcast(chatInput.value)
+	// 	chatInput.value = ''
+	// })
 
-	//send and receive messages
+	/* Knockout View Model */
+	var MessengerViewModel = function() {
+		var self = this;
+		self.messages = ko.observableArray([])
+		self.newMessage = ko.observable();
 
-	room.on('peer joined', (peer) => {
-		room.sendTo(peer, 'Hello ' + peer + '!')
-	})
-	room.on('message', (message) => {
-		console.log('' + message.from + ': ' + message.data.toString())
-	})
+		room.on('peer joined', (peer) => {
+			room.sendTo(peer, 'Hello ' + peer + '!')
+		})
+		room.on('message', (message) => {
+			self.messages.push('' + message.from + ': ' + message.data.toString())
+		})
 
-	sendButton.addEventListener('click', () => {
-		room.broadcast(chatInput.value)
-		chatInput.value = ''
-	})
+		//send a message
+		self.sendMessage = function() {
+			room.broadcast(self.newMessage())
+			self.newMessage('')
+		}
+	}
 
-	// var MessengerViewModel = function(room) {
-	// 	this.messages = ko.observableArray([]);
-	// }
-
+	ko.applyBindings(new MessengerViewModel())
 }
 
 
